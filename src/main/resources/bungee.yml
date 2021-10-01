@@ -1,0 +1,10 @@
+name: BungeeCommandAssist
+version: @version@
+main: com.gmail.necnionch.myplugin.bungeecommandassist.bungee.BungeeCommandAssist
+author: Necnion8
+
+# permissions
+#   bungeecommandassist.command.reload
+#   bungeecommandassist.command.logwatch
+#   bungeecommandassist.command.tabassist
+#   bungeecommandassist.watcher

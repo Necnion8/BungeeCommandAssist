@@ -1,0 +1,50 @@
+
+debug: false
+
+command-prefix: "&8[&3C;Assist&8] "
+enable-short-server-command: true
+enable-short-player-teleport-command: NOT_IMPLEMENTED
+
+bungee-commands:
+  # ORIGINAL: RENAMED
+  remapping:
+    ban: gban
+  # ALIAS: ORIGINAL
+  aliases:
+    svr: server
+
+bukkit-commands:
+  # ALIAS: ORIGINAL
+  aliases:
+    gms: gamemode survival
+    gmc: gamemode creative
+    gma: gamemode adventure
+    gmsp: gamemode spectator
+
+server-quick-command:
+  # SERVER:
+  lobby:
+    commands: [lobby, l, hub]
+    permission: bungeecommandassist.command.serverquick  # nullable
+    execute-command-when-connected: lobby  # nullable
+
+watcher:
+  format: "&4* &7{player} &8[&7/{command}&8]"
+  blacklist:
+    - tell
+    - t
+    - message
+    - msg
+    - m
+    - w
+    - reply
+    - r
+
+tabcomplete-generator:
+  # COMMAND: PLAYERS, SERVERS, [ENTRY1, ENTRY2, ENTRY3, ...]
+  tell: PLAYERS
+  t: PLAYERS
+  message: PLAYERS
+  msg: PLAYERS
+  m: PLAYERS
+  w: PLAYERS
