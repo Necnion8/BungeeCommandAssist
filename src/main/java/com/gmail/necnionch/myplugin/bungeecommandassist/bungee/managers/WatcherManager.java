@@ -55,8 +55,8 @@ public class WatcherManager implements Listener {
             return;
 
         String formatted = ChatColor.translateAlternateColorCodes('&', config.getFormat())
-                .replaceAll("\\{player}", sender.getName())
-                .replaceAll("\\{command}", String.join(" ", split));
+                .replace("{player}", sender.getName())
+                .replace("{command}", String.join(" ", split));
 
         plugin.getProxy().getPlayers().forEach(p -> {
             if (!p.equals(sender) && p.hasPermission(PERMS_WATCHER) && isWatching(p.getUniqueId()))
