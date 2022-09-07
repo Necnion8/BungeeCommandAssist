@@ -1,0 +1,16 @@
+
+reload-config: "&7設定ファイルとコマンドを再読み込みしました"
+
+non-player: "&4コンソールから実行できません"
+specify-yes-or-no: "&cOn &7OR &cOff &4を指定してください"
+specify-server: "&4サーバー名を指定してください"
+already-connected: "&4既に接続しています"
+failed-assist: "&4推測に失敗しました"
+
+enabled-watcher: "&7コマンドログを&2有効化&7しました"
+enabled-watcher-temp: "&7コマンドログを&2一時的に有効化&7しました"
+disabled-watcher: "&7コマンドログを&4無効化&7しました"
+disabled-watcher-temp: "&7コマンドログを&4一時的に無効化&7しました"
+
+enabled-assist: "&7タブ補完アシストを&2有効化&7しました"
+disabled-assist: "&7タブ補完アシストを&4無効化&7しました"

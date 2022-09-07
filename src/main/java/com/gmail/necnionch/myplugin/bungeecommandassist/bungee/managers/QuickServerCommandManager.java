@@ -2,6 +2,7 @@ package com.gmail.necnionch.myplugin.bungeecommandassist.bungee.managers;
 
 import com.gmail.necnionch.myplugin.bungeecommandassist.bungee.BungeeCommandAssist;
 import com.gmail.necnionch.myplugin.bungeecommandassist.bungee.CommandWrapper;
+import com.gmail.necnionch.myplugin.bungeecommandassist.bungee.Lang;
 import com.gmail.necnionch.myplugin.bungeecommandassist.bungee.config.QuickServerCommandEntry;
 import com.google.common.collect.Sets;
 import net.md_5.bungee.api.config.ServerInfo;
@@ -45,7 +46,7 @@ public class QuickServerCommandManager {
                             String argsLine = (args.length >= 1) ? " " + String.join(" ", args) : "";
                             p.chat("/" + entry.getSendCommandWhenConnected() + argsLine);
                         } else {
-                            plugin.sendWithPrefix(p, "&4既に接続しています");
+                            plugin.sendWithPrefix(p, Lang.ALREADY_CONNECTED);
                         }
                     } else if (server != null) {
                         p.connect(server);

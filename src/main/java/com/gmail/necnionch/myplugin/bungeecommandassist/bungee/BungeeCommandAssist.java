@@ -1,5 +1,6 @@
 package com.gmail.necnionch.myplugin.bungeecommandassist.bungee;
 
+import com.gmail.necnionch.myplugin.bungeecommandassist.bungee.config.LanguageConfig;
 import com.gmail.necnionch.myplugin.bungeecommandassist.bungee.config.PlayerConfig;
 import com.gmail.necnionch.myplugin.bungeecommandassist.bungee.managers.*;
 import com.gmail.necnionch.myplugin.bungeecommandassist.common.command.CommandBungee;
@@ -7,6 +8,7 @@ import com.gmail.necnionch.myplugin.bungeecommandassist.common.command.CommandSe
 import com.gmail.necnionch.myplugin.bungeecommandassist.common.dataio.BukkitPlayerCommandPacket;
 import com.gmail.necnionch.myplugin.bungeecommandassist.common.dataio.PluginMessaging;
 import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.PostLoginEvent;
@@ -28,6 +30,7 @@ public final class BungeeCommandAssist extends Plugin implements Listener {
     private final PlayerConfig playersConfig = new PlayerConfig(this);
     private final Command mainCommand = CommandBungee.build(new MainCommand(this), "bcommandassist", null, "bacmd");
     private final PluginMessaging.BungeeSender messagingSender = new PluginMessaging.BungeeSender(this);
+    private final LanguageConfig language = new LanguageConfig(this);
 
     private final BungeeCommandManager bungeeManager = new BungeeCommandManager(this);
     private final BukkitCommandManager bukkitManager = new BukkitCommandManager(this);
@@ -59,6 +62,7 @@ public final class BungeeCommandAssist extends Plugin implements Listener {
 
         messagingSender.registerChannel();
 
+        language.load();
         reloadConfig();
 
         new MetricsLite(this, 16372);
@@ -73,6 +77,8 @@ public final class BungeeCommandAssist extends Plugin implements Listener {
         mgr.unregisterCommands(this);
         mgr.unregisterListeners(this);
         messagingSender.unregisterChannel();
+
+        language.unload();
     }
 
 
@@ -88,6 +94,7 @@ public final class BungeeCommandAssist extends Plugin implements Listener {
 
 
     public void reloadConfig() {
+        language.load();
         mainConfig.load();
         playersConfig.load();
         bungeeManager.registerCommands(mainConfig.getBungeeCommands());
@@ -106,6 +113,10 @@ public final class BungeeCommandAssist extends Plugin implements Listener {
 
     }
 
+    public LanguageConfig getLanguage() {
+        return language;
+    }
+
     public MainConfig getMainConfig() {
         return mainConfig;
     }
@@ -114,14 +125,20 @@ public final class BungeeCommandAssist extends Plugin implements Listener {
         return playersConfig;
     }
 
-    public void sendWithPrefix(CommandSender sender, String message) {
-        message = ChatColor.translateAlternateColorCodes('&', mainConfig.getCommandPrefix() + message);
-        sender.sendMessage(TextComponent.fromLegacyText(message));
+    public void sendWithPrefix(CommandSender sender, Lang message) {
+        sender.sendMessage(new ComponentBuilder()
+                .appendLegacy(ChatColor.translateAlternateColorCodes('&', mainConfig.getCommandPrefix()))
+                .append(language.getMessage(message, sender.getLocale()))
+                .create());
     }
 
-    public void sendWithPrefix(net.md_5.bungee.api.CommandSender sender, String message) {
-        message = ChatColor.translateAlternateColorCodes('&', mainConfig.getCommandPrefix() + message);
-        sender.sendMessage(TextComponent.fromLegacyText(message));
+    public void sendWithPrefix(net.md_5.bungee.api.CommandSender sender, Lang message) {
+        String locale = new CommandBungee.Sender(sender).getLocale();
+
+        sender.sendMessage(new ComponentBuilder()
+                .appendLegacy(ChatColor.translateAlternateColorCodes('&', mainConfig.getCommandPrefix()))
+                .append(language.getMessage(message, locale))
+                .create());
     }
 
     public void sendCommandRequestToBukkit(ProxiedPlayer player, String command) {

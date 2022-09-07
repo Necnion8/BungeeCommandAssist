@@ -1,0 +1,16 @@
+
+reload-config: "&7Reloaded configuration and commands"
+
+non-player: "&4Can't execute command from console"
+specify-yes-or-no: "&4Please specify &cOn &7OR &cOff"
+specify-server: "&4Please specify server name"
+already-connected: "&4Already connected"
+failed-assist: "&4Assist failed"
+
+enabled-watcher: "&2Enabled &7Command Watcher"
+enabled-watcher-temp: "&2Temporary enabled &7Command Watcher"
+disabled-watcher: "&4Disabled &7Command Watcher"
+disabled-watcher-temp: "&4Temporary disabled &7Command Watcher"
+
+enabled-assist: "&2Enabled &7Assist Tab-Completion"
+disabled-assist: "&4Disabled &7Assist Tab-Completion"

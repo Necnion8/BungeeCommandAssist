@@ -1,15 +1,14 @@
 package com.gmail.necnionch.myplugin.bungeecommandassist.bungee.managers;
 
+import com.gmail.necnionch.myplugin.bungeecommandassist.bungee.BungeeCommandAssist;
 import com.gmail.necnionch.myplugin.bungeecommandassist.bungee.CommandWrapper;
+import com.gmail.necnionch.myplugin.bungeecommandassist.bungee.Lang;
 import com.google.common.collect.Sets;
-import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
-import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.ChatEvent;
 import net.md_5.bungee.api.plugin.Listener;
-import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.api.plugin.PluginManager;
 import net.md_5.bungee.event.EventHandler;
 
@@ -27,16 +26,16 @@ public class ShortServerCommandHandler implements Listener {
     private final Set<CommandWrapper> dynamics = Sets.newHashSet();
     private CommandWrapper fakeCommand;
 
-    private final Plugin pl;
+    private final BungeeCommandAssist pl;
     private final PluginManager mgr;
 
-    private ShortServerCommandHandler(Plugin pl, PluginManager mgr) {
+    private ShortServerCommandHandler(BungeeCommandAssist pl, PluginManager mgr) {
         this.pl = pl;
         this.mgr = mgr;
     }
 
 
-    public static ShortServerCommandHandler register(Plugin plugin, PluginManager pluginManager) {
+    public static ShortServerCommandHandler register(BungeeCommandAssist plugin, PluginManager pluginManager) {
         ShortServerCommandHandler self = new ShortServerCommandHandler(plugin, pluginManager);
         pluginManager.registerListener(plugin, self);
         self.registerCommands();
@@ -127,7 +126,7 @@ public class ShortServerCommandHandler implements Listener {
         }
 
         if (input.isEmpty()) {
-            p.sendMessage(new ComponentBuilder("サーバー名を指定してください").color(ChatColor.DARK_RED).create());
+            pl.sendWithPrefix(p, Lang.SPECIFY_SERVER);
             return;
         }
 
@@ -136,7 +135,7 @@ public class ShortServerCommandHandler implements Listener {
             suggest = findOnes(input, getServers());
 
         } catch (NullPointerException e) {
-            p.sendMessage(new ComponentBuilder("引数解析に失敗").color(ChatColor.DARK_RED).create());
+            pl.sendWithPrefix(p, Lang.FAILED_ASSIST);
             return;
         }
 

@@ -42,9 +42,5 @@ jar {
             it.isDirectory() ? it : zipTree(it)
         }
     }
-
-    into("source") {
-        from "src/main/java"
-    }
 }
 compileJava.options.encoding = 'UTF-8'

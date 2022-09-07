@@ -32,13 +32,13 @@ public class MainCommand extends RootCommand {
 
     private void execReload(CommandSender s, List<String> a) {
         pl.reloadConfig();
-        pl.sendWithPrefix(s, "&7設定ファイルとコマンドを再読み込みしました");
+        pl.sendWithPrefix(s, Lang.RELOAD_CONFIG);
     }
 
 
     private void execWatch(CommandSender s, List<String> a) {
         if (!(s.getSender() instanceof ProxiedPlayer)) {
-            pl.sendWithPrefix(s, "&4プレイヤーコマンドです");
+            pl.sendWithPrefix(s, Lang.NON_PLAYER);
             return;
         }
         ProxiedPlayer p = (ProxiedPlayer) s.getSender();
@@ -46,9 +46,8 @@ public class MainCommand extends RootCommand {
         if (a.isEmpty()) {
             boolean watching = !mgr.isWatching(p.getUniqueId());
             mgr.setTempWatching(p.getUniqueId(), watching);
-            String color = (watching) ? "&2" : "&4";
-            String text = (watching) ? "有効化" : "無効化";
-            pl.sendWithPrefix(s, "&7コマンドログを" + color + "一時的に" + text + "&7しました");
+            pl.sendWithPrefix(s, (watching) ? Lang.ENABLED_WATCHER_TEMP : Lang.DISABLED_WATCHER_TEMP);
+
         } else {
             String mode = a.get(0).toLowerCase(Locale.ROOT);
 
@@ -58,19 +57,18 @@ public class MainCommand extends RootCommand {
             } else if (mode.equalsIgnoreCase("disable") || mode.equalsIgnoreCase("off")) {
                 watching = false;
             } else {
-                pl.sendWithPrefix(s, "&con &7OR &coff &4を指定してください");
+                pl.sendWithPrefix(s, Lang.SPECIFY_YES_OR_NO);
                 return;
             }
 
             mgr.setWatching(p.getUniqueId(), watching);
-            String text = (watching) ? "&2有効化" : "&4無効化";
-            pl.sendWithPrefix(s, "&7コマンドログを" + text + "&7しました");
+            pl.sendWithPrefix(s, (watching) ? Lang.ENABLED_WATCHER : Lang.DISABLED_WATCHER);
         }
     }
 
     private void execAssist(CommandSender s, List<String> a) {
         if (!(s.getSender() instanceof ProxiedPlayer)) {
-            pl.sendWithPrefix(s, "&4プレイヤーコマンドです");
+            pl.sendWithPrefix(s, Lang.NON_PLAYER);
             return;
         }
         ProxiedPlayer p = (ProxiedPlayer) s.getSender();
@@ -85,7 +83,7 @@ public class MainCommand extends RootCommand {
             } else if (mode.equalsIgnoreCase("disable") || mode.equalsIgnoreCase("off")) {
                 assist = false;
             } else {
-                pl.sendWithPrefix(s, "&con &7OR &coff &4を指定してください");
+                pl.sendWithPrefix(s, Lang.SPECIFY_YES_OR_NO);
                 return;
             }
         }
@@ -97,8 +95,7 @@ public class MainCommand extends RootCommand {
         }
         pl.getPlayersConfig().save();
 
-        String text = (assist) ? "&2有効化" : "&4無効化";
-        pl.sendWithPrefix(s, "&7タブ補完アシスト機能(β)を" + text + "&7しました");
+        pl.sendWithPrefix(s, (assist) ? Lang.ENABLED_ASSIST : Lang.DISABLED_ASSIST);
     }
 
     @NotNull
