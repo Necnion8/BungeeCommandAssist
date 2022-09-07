@@ -62,28 +62,7 @@ public class BukkitCommandManager implements Listener {
 
         if (!mgr.callEvent(newEvent).isCancelled() && event.getSender() instanceof ProxiedPlayer) {
             ProxiedPlayer player = (ProxiedPlayer) event.getSender();
-
-            switch (plugin.getMainConfig().getBukkitCommandsHandling()) {
-                case BUNGEE: {
-                    try {
-                        player.chat("/" + newEvent.getChangedLine());
-                    } catch (Throwable e) {
-                        plugin.getLogger().warning("Error in player.chat() (" + player.getName() + "): " + e.getMessage());
-                    }
-                    break;
-                }
-                case BUKKIT: {
-                    plugin.sendCommandRequestToBukkit(player, newEvent.getChangedLine());
-                    break;
-                }
-                default: {
-                    try {
-                        player.chat("/" + newEvent.getChangedLine());
-                    } catch (UnsupportedOperationException e) {
-                        plugin.sendCommandRequestToBukkit(player, newEvent.getChangedLine());
-                    }
-                }
-            }
+            plugin.dispatchCommandToBukkit(player, newEvent.getChangedLine());
             event.setCancelled(true);
         }
 

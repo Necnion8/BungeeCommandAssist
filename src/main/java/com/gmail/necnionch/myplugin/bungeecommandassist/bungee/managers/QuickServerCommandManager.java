@@ -44,7 +44,7 @@ public class QuickServerCommandManager {
                     if (entry.getServer().equals(p.getServer().getInfo().getName())) {
                         if (entry.getSendCommandWhenConnected() != null) {
                             String argsLine = (args.length >= 1) ? " " + String.join(" ", args) : "";
-                            p.chat("/" + entry.getSendCommandWhenConnected() + argsLine);
+                            plugin.dispatchCommandToBukkit(p, entry.getSendCommandWhenConnected() + argsLine);
                         } else {
                             plugin.sendWithPrefix(p, Lang.ALREADY_CONNECTED);
                         }

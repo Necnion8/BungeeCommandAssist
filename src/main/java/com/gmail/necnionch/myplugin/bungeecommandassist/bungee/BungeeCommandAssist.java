@@ -9,7 +9,6 @@ import com.gmail.necnionch.myplugin.bungeecommandassist.common.dataio.BukkitPlay
 import com.gmail.necnionch.myplugin.bungeecommandassist.common.dataio.PluginMessaging;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.PostLoginEvent;
 import net.md_5.bungee.api.plugin.Command;
@@ -143,6 +142,30 @@ public final class BungeeCommandAssist extends Plugin implements Listener {
 
     public void sendCommandRequestToBukkit(ProxiedPlayer player, String command) {
         messagingSender.sendData(player, "playerCommand", new BukkitPlayerCommandPacket(command));
+    }
+
+    public void dispatchCommandToBukkit(ProxiedPlayer player, String command) {
+        switch (mainConfig.getBukkitCommandsHandling()) {
+            case BUNGEE: {
+                try {
+                    player.chat("/" +command);
+                } catch (Throwable e) {
+                    getLogger().warning("Error in player.chat() (" + player.getName() + "): " + e.getMessage());
+                }
+                break;
+            }
+            case BUKKIT: {
+                sendCommandRequestToBukkit(player, command);
+                break;
+            }
+            default: {
+                try {
+                    player.chat("/" + command);
+                } catch (UnsupportedOperationException e) {
+                    sendCommandRequestToBukkit(player, command);
+                }
+            }
+        }
     }
 
 
