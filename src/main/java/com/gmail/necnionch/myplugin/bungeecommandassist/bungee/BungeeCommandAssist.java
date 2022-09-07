@@ -61,6 +61,7 @@ public final class BungeeCommandAssist extends Plugin implements Listener {
 
         reloadConfig();
 
+        new MetricsLite(this, 16372);
     }
 
     @Override
