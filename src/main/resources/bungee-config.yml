@@ -21,6 +21,12 @@ bukkit-commands:
     gma: gamemode adventure
     gmsp: gamemode spectator
 
+  # executes handler select
+  #   auto    : default
+  #   bungee  : ~ 1.18 Client only
+  #   bukkit  : Compatibility mode (required Bukkit Bridge)
+  handling: auto
+
 server-quick-command:
   # SERVER:
   lobby:

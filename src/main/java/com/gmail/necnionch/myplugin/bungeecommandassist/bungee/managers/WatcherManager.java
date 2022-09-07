@@ -5,7 +5,6 @@ import com.gmail.necnionch.myplugin.bungeecommandassist.bungee.config.PlayerConf
 import com.gmail.necnionch.myplugin.bungeecommandassist.bungee.config.WatcherConfig;
 import com.gmail.necnionch.myplugin.bungeecommandassist.bungee.events.CommandLogEvent;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.ChatEvent;
@@ -15,7 +14,6 @@ import net.md_5.bungee.event.EventHandler;
 
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 
 public class WatcherManager implements Listener {

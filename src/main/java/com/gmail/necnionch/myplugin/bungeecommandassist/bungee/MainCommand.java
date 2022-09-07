@@ -1,7 +1,6 @@
 package com.gmail.necnionch.myplugin.bungeecommandassist.bungee;
 
 import com.gmail.necnionch.myplugin.bungeecommandassist.bungee.managers.WatcherManager;
-import com.gmail.necnionch.myplugin.bungeecommandassist.common.command.Command;
 import com.gmail.necnionch.myplugin.bungeecommandassist.common.command.CommandSender;
 import com.gmail.necnionch.myplugin.bungeecommandassist.common.command.RootCommand;
 import net.md_5.bungee.api.connection.ProxiedPlayer;

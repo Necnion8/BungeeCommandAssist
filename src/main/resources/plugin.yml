@@ -1,0 +1,5 @@
+name: BungeeCommandAssistBridge
+version: @version@
+main: com.gmail.necnionch.myplugin.bungeecommandassist.bukkit.BACmdBridgePlugin
+author: Necnion8
+prefix: BACmd

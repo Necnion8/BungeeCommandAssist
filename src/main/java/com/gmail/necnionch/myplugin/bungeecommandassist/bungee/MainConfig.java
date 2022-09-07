@@ -18,6 +18,7 @@ public class MainConfig extends BungeeConfigDriver {
     private final List<QuickServerCommandEntry> serverCommands = Lists.newArrayList();
     private final Map<String, TabCompleteGenerator> completeGenerators = Maps.newHashMap();
     private WatcherConfig watcherConfig = new WatcherConfig("", Collections.emptySet());
+    private BukkitCommandHandling bukkitCommandHandling = BukkitCommandHandling.AUTO;
 
 
     public MainConfig(Plugin plugin) {
@@ -48,6 +49,10 @@ public class MainConfig extends BungeeConfigDriver {
 
     public List<CommandEntry> getBukkitCommands() {
         return bukkitCommands;
+    }
+
+    public BukkitCommandHandling getBukkitCommandsHandling() {
+        return bukkitCommandHandling;
     }
 
     public List<QuickServerCommandEntry> getServerCommands() {
@@ -92,6 +97,12 @@ public class MainConfig extends BungeeConfigDriver {
                         alias.toLowerCase(Locale.ROOT),
                         CommandEntry.Type.ALIAS
                 ));
+            }
+
+            try {
+                bukkitCommandHandling = BukkitCommandHandling.valueOf(config.getString("bukkit-commands.handling", "").toUpperCase(Locale.ROOT));
+            } catch (IllegalArgumentException e) {
+                bukkitCommandHandling = BukkitCommandHandling.AUTO;
             }
 
 

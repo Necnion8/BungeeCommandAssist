@@ -17,8 +17,8 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import static com.gmail.necnionch.myplugin.bungeecommandassist.bungee.BungeeCommandAssist.findOnes;
 import static com.gmail.necnionch.myplugin.bungeecommandassist.bungee.BungeeCommandAssist.findEntries;
+import static com.gmail.necnionch.myplugin.bungeecommandassist.bungee.BungeeCommandAssist.findOnes;
 
 
 public class ShortServerCommandHandler implements Listener {

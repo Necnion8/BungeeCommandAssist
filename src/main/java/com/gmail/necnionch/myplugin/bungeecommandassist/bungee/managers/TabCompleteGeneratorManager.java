@@ -2,14 +2,12 @@ package com.gmail.necnionch.myplugin.bungeecommandassist.bungee.managers;
 
 import com.gmail.necnionch.myplugin.bungeecommandassist.bungee.BungeeCommandAssist;
 import com.gmail.necnionch.myplugin.bungeecommandassist.bungee.config.TabCompleteGenerator;
-import com.gmail.necnionch.myplugin.bungeecommandassist.bungee.config.TabCompleteGeneratorEntry;
 import com.gmail.necnionch.myplugin.bungeecommandassist.common.command.RootCommand;
 import net.md_5.bungee.api.event.TabCompleteEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 

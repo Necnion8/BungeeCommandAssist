@@ -4,8 +4,11 @@ import com.gmail.necnionch.myplugin.bungeecommandassist.bungee.config.PlayerConf
 import com.gmail.necnionch.myplugin.bungeecommandassist.bungee.managers.*;
 import com.gmail.necnionch.myplugin.bungeecommandassist.common.command.CommandBungee;
 import com.gmail.necnionch.myplugin.bungeecommandassist.common.command.CommandSender;
+import com.gmail.necnionch.myplugin.bungeecommandassist.common.dataio.BukkitPlayerCommandPacket;
+import com.gmail.necnionch.myplugin.bungeecommandassist.common.dataio.PluginMessaging;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.PostLoginEvent;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.Listener;
@@ -24,6 +27,7 @@ public final class BungeeCommandAssist extends Plugin implements Listener {
     private final MainConfig mainConfig = new MainConfig(this);
     private final PlayerConfig playersConfig = new PlayerConfig(this);
     private final Command mainCommand = CommandBungee.build(new MainCommand(this), "bcommandassist", null, "bacmd");
+    private final PluginMessaging.BungeeSender messagingSender = new PluginMessaging.BungeeSender(this);
 
     private final BungeeCommandManager bungeeManager = new BungeeCommandManager(this);
     private final BukkitCommandManager bukkitManager = new BukkitCommandManager(this);
@@ -53,6 +57,8 @@ public final class BungeeCommandAssist extends Plugin implements Listener {
         mgr.registerListener(this, argumentAssistManager);
         mgr.registerListener(this, generatorManager);
 
+        messagingSender.registerChannel();
+
         reloadConfig();
 
     }
@@ -65,6 +71,7 @@ public final class BungeeCommandAssist extends Plugin implements Listener {
 
         mgr.unregisterCommands(this);
         mgr.unregisterListeners(this);
+        messagingSender.unregisterChannel();
     }
 
 
@@ -114,6 +121,10 @@ public final class BungeeCommandAssist extends Plugin implements Listener {
     public void sendWithPrefix(net.md_5.bungee.api.CommandSender sender, String message) {
         message = ChatColor.translateAlternateColorCodes('&', mainConfig.getCommandPrefix() + message);
         sender.sendMessage(TextComponent.fromLegacyText(message));
+    }
+
+    public void sendCommandRequestToBukkit(ProxiedPlayer player, String command) {
+        messagingSender.sendData(player, "playerCommand", new BukkitPlayerCommandPacket(command));
     }
 
 
